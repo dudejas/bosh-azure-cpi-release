@@ -87,7 +87,7 @@ describe Bosh::AzureCloud::TelemetryEventHandler do
     end
 
     after do
-      FileUtils.rm_f(cpi_events_dir)
+      FileUtils.rm_rf(cpi_events_dir)
     end
 
     context 'when it has event files' do
@@ -144,7 +144,7 @@ describe Bosh::AzureCloud::TelemetryEventHandler do
     end
 
     after do
-      FileUtils.rm_f(cpi_events_dir)
+      FileUtils.rm_rf(cpi_events_dir)
     end
 
     context 'if everything is is ok' do
