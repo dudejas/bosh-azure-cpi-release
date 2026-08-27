@@ -87,7 +87,7 @@ describe Bosh::AzureCloud::TelemetryEventHandler do
     end
 
     after do
-      Dir.delete(cpi_events_dir) if Dir.exist?(cpi_events_dir)
+      FileUtils.rm_f(cpi_events_dir)
     end
 
     context 'when it has event files' do
@@ -144,7 +144,7 @@ describe Bosh::AzureCloud::TelemetryEventHandler do
     end
 
     after do
-      Dir.delete(cpi_events_dir) if Dir.exist?(cpi_events_dir)
+      FileUtils.rm_f(cpi_events_dir)
     end
 
     context 'if everything is is ok' do
@@ -217,7 +217,7 @@ describe Bosh::AzureCloud::TelemetryEventHandler do
 
     context 'when file does not exist' do
       before do
-        File.delete(timestamp_file) if File.exist?(timestamp_file)
+        FileUtils.rm_f(timestamp_file)
       end
 
       it 'should return nil' do

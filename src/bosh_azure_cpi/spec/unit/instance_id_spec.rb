@@ -246,7 +246,7 @@ describe Bosh::AzureCloud::InstanceId do
       context 'when it is a unmanaged disk vm and length of agent id is not 36' do
         let(:storage_account_name) { 'fakestorageaccountname' }
         let(:instance_id_string) { "#{storage_account_name}-length-not-equal-to-36" }
-        let(:instance_id) {}
+        let(:instance_id) { nil }
 
         it 'should raise an error' do
           expect do

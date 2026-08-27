@@ -362,7 +362,7 @@ module Bosh::AzureCloud
 
       sha256 = Digest::SHA256.new
       File.open(image_path, 'rb') do |file|
-        while chunk = file.read(8192)
+        while (chunk = file.read(8192))
           sha256.update(chunk)
         end
       end

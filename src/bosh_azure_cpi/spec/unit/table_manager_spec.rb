@@ -2,6 +2,18 @@
 
 require 'spec_helper'
 
+class MyArray < Array
+  attr_accessor :continuation_token
+end
+
+class MyEntity
+  def initialize
+    @properties = {}
+    yield self if block_given?
+  end
+  attr_accessor :properties
+end
+
 describe Bosh::AzureCloud::TableManager do
   let(:azure_config) { mock_azure_config }
   let(:storage_account_manager) { instance_double(Bosh::AzureCloud::StorageAccountManager) }
@@ -55,18 +67,6 @@ describe Bosh::AzureCloud::TableManager do
     allow(table_service).to receive(:with_filter).with(exponential_retry)
 
     allow(SecureRandom).to receive(:uuid).and_return(request_id)
-  end
-
-  class MyArray < Array
-    attr_accessor :continuation_token
-  end
-
-  class MyEntity
-    def initialize
-      @properties = {}
-      yield self if block_given?
-    end
-    attr_accessor :properties
   end
 
   describe '#has_table?' do
