@@ -21,10 +21,10 @@ describe Bosh::AzureCloud::ResObjectId do
       let(:wrong_id_str) { 'mock_plain_id;ak:av' }
 
       it 'should raise error' do
-        ErrorMsg = Bosh::AzureCloud::ErrorMsg
+        error_msg = Bosh::AzureCloud::ErrorMsg
         expect do
           Bosh::AzureCloud::ResObjectId.parse_with_resource_group(wrong_id_str, resource_group_name)
-        end.to raise_error(/#{ErrorMsg::OBJ_ID_KEY_VALUE_FORMAT_ERROR}/)
+        end.to raise_error(/#{error_msg::OBJ_ID_KEY_VALUE_FORMAT_ERROR}/)
       end
     end
   end

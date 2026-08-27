@@ -19,6 +19,7 @@ module Bosh::AzureCloud
     attr_accessor :status, :error
 
     def initialize(status = nil)
+      super()
       @status = status
     end
   end
@@ -2308,7 +2309,7 @@ module Bosh::AzureCloud
             size: sku['size'],
             family: sku['family'],
             restrictions: sku['restrictions'],
-            capabilities: sku['capabilities']&.map { |c| [c['name'].to_sym, c['value']] }.to_h || {}
+            capabilities: sku['capabilities']&.map { |c| [c['name'].to_sym, c['value']] }.to_h
           }
           next if location && vm_sku[:location]&.downcase != location.downcase
 

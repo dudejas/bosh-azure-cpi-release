@@ -19,6 +19,7 @@ module Bosh::AzureCloud
     #
     # @param [Hash] options cloud options
     def initialize(options, api_version = 1)
+      super()
       cloud_error("Invalid api_version '#{api_version}'") unless [1, 2, nil].include?(api_version)
 
       options_dup = options.dup.freeze
