@@ -146,7 +146,7 @@ describe Bosh::AzureCloud::BlobManager do
       end
 
       after(:context) do
-        File.delete(@file_path) if File.exist?(@file_path)
+        FileUtils.rm_f(@file_path)
       end
 
       context 'when uploading page blob succeeds' do
@@ -197,13 +197,13 @@ describe Bosh::AzureCloud::BlobManager do
     context 'when empty page blob' do
       before do
         @empty_file_path = '/tmp/empty_content_image'
-        MAX_CHUNK_SIZE = 2 * 1024 * 1024 # 2MB
-        @empty_chunk_content = Array.new(MAX_CHUNK_SIZE, 0).pack('c*')
+        max_chunk_size = 2 * 1024 * 1024 # 2MB
+        @empty_chunk_content = Array.new(max_chunk_size, 0).pack('c*')
         File.open(@empty_file_path, 'wb') { |f| f.write(@empty_chunk_content) }
       end
 
       after do
-        File.delete(@empty_file_path) if File.exist?(@empty_file_path)
+        FileUtils.rm_f(@empty_file_path)
       end
 
       it 'should not call put_blob_pages' do
@@ -308,7 +308,7 @@ describe Bosh::AzureCloud::BlobManager do
     end
 
     after(:context) do
-      File.delete(@file_path) if File.exist?(@file_path)
+      FileUtils.rm_f(@file_path)
     end
 
     context 'when creating vhd page blob succeeds' do

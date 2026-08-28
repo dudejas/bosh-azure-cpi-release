@@ -26,8 +26,8 @@ def checkout_repo(repo, dir: '/tmp/cpi-test', branch: 'master', force_renew: fal
   dest_dir = File.join(dir, name)
   return dest_dir if File.exist?(dest_dir) && !force_renew
 
-  FileUtils.rm_rf(dest_dir) if File.exist?(dest_dir)
-  Dir.mkdir(dir) unless File.exist?(dir)
+  FileUtils.rm_rf(dest_dir)
+  FileUtils.mkdir_p(dir)
 
   g = Git.clone(repo, name, path: dir)
   g.checkout(branch)

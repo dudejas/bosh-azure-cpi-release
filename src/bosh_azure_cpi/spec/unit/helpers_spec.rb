@@ -2,6 +2,18 @@
 
 require 'spec_helper'
 
+class HelpersTester
+  include Bosh::AzureCloud::Helpers
+
+  def initialize
+    @logger = Logger.new('/dev/null')
+  end
+
+  def set_logger(logger)
+    @logger = logger
+  end
+end
+
 describe Bosh::AzureCloud::Helpers do
   let(:api_version) { AZURE_API_VERSION }
   let(:azure_stack_api_version) { AZURE_STACK_API_VERSION }
@@ -16,18 +28,6 @@ describe Bosh::AzureCloud::Helpers do
         }
       }
     }
-  end
-
-  class HelpersTester
-    include Bosh::AzureCloud::Helpers
-
-    def initialize
-      @logger = Logger.new('/dev/null')
-    end
-
-    def set_logger(logger)
-      @logger = logger
-    end
   end
 
   helpers_tester = HelpersTester.new

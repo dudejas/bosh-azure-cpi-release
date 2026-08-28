@@ -32,18 +32,12 @@ module Bosh::AzureCloud
 
     def type_of(value)
       case value
-      when String
-        'mt:wstr'
       when Integer
         'mt:uint64'
       when Float
         'mt:float64'
-      when TrueClass
+      when TrueClass, FalseClass
         'mt:bool'
-      when FalseClass
-        'mt:bool'
-      when Hash
-        'mt:wstr'
       else
         'mt:wstr'
       end

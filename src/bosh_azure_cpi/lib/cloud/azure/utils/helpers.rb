@@ -203,6 +203,7 @@ module Bosh::AzureCloud
     def ignore_exception(error = Exception)
       yield
     rescue error
+      nil
     end
 
     def bosh_jobs_dir

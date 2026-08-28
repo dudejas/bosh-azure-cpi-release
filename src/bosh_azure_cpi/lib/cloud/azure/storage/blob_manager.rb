@@ -312,7 +312,7 @@ module Bosh::AzureCloud
       thread_num.times do |id|
         thread = Thread.new do
           File.open(file_path, 'rb') do |file|
-            while chunk = chunks.shift
+            while (chunk = chunks.shift)
               content = chunk.read(file)
               if content == @empty_chunk_content
                 @logger.debug("_upload_page_blob_in_threads: Thread #{id}: Skip empty chunk: #{chunk}")
