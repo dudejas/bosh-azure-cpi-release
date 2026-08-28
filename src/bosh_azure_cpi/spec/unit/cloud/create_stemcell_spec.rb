@@ -36,7 +36,6 @@ describe Bosh::AzureCloud::Cloud do
 
           expect(light_stemcell_manager).to receive(:create_stemcell)
             .with(cloud_properties).and_return(stemcell_cid)
-          expect(stemcell_manager).not_to receive(:create_stemcell)
           expect(stemcell_manager2).not_to receive(:create_stemcell)
 
           expect(
@@ -73,7 +72,6 @@ describe Bosh::AzureCloud::Cloud do
           expect(stemcell_manager2).to receive(:create_stemcell)
             .with(image_path, cloud_properties).and_return(stemcell_cid)
           expect(light_stemcell_manager).not_to receive(:create_stemcell)
-          expect(stemcell_manager).not_to receive(:create_stemcell)
 
           expect(
             compute_gallery_cloud.create_stemcell(image_path, cloud_properties)
@@ -97,7 +95,7 @@ describe Bosh::AzureCloud::Cloud do
           .with('create_stemcell', { extras: { 'stemcell' => "#{stemcell_name}-#{stemcell_version}" } })
           .and_call_original
 
-        expect(stemcell_manager).to receive(:create_stemcell)
+        expect(stemcell_manager2).to receive(:create_stemcell)
           .with(image_path, cloud_properties).and_return(stemcell_cid)
 
         expect(

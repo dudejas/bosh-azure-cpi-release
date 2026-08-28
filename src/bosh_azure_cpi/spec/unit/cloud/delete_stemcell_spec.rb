@@ -30,7 +30,6 @@ describe Bosh::AzureCloud::Cloud do
         it 'should still use the light stemcell manager' do
           expect(light_stemcell_manager).to receive(:delete_stemcell)
             .with(stemcell_cid)
-          expect(stemcell_manager).not_to receive(:delete_stemcell)
           expect(stemcell_manager2).not_to receive(:delete_stemcell)
 
           expect do
@@ -59,7 +58,6 @@ describe Bosh::AzureCloud::Cloud do
           expect(stemcell_manager2).to receive(:delete_stemcell)
             .with(stemcell_cid)
           expect(light_stemcell_manager).not_to receive(:delete_stemcell)
-          expect(stemcell_manager).not_to receive(:delete_stemcell)
 
           expect do
             compute_gallery_cloud.delete_stemcell(stemcell_cid)

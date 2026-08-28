@@ -46,7 +46,6 @@ describe Bosh::AzureCloud::Cloud do
 
       it 'should delete the managed disk' do
         expect(disk_manager2).to receive(:delete_data_disk).with(disk_id_object)
-        expect(disk_manager).not_to receive(:delete_data_disk)
         expect do
           managed_cloud.delete_disk(disk_cid)
         end.not_to raise_error
