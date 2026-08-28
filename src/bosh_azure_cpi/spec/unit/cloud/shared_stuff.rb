@@ -3,11 +3,10 @@
 shared_context 'shared stuff' do
   let(:cloud) { mock_cloud }
   let(:azure_config) { cloud.config.azure }
-  let(:managed_cloud) { mock_cloud(mock_cloud_properties_merge('azure' => { 'use_managed_disks' => true })) }
-  let(:azure_config_managed) { managed_cloud.config.azure }
+  let(:managed_cloud) { mock_cloud }
+  let(:azure_config_managed) { azure_config }
   let(:azure_client) { instance_double('Bosh::AzureCloud::AzureClient') }
   let(:blob_manager) { instance_double('Bosh::AzureCloud::BlobManager') }
-  let(:disk_manager) { instance_double('Bosh::AzureCloud::DiskManager') }
   let(:storage_account_manager) { instance_double('Bosh::AzureCloud::StorageAccountManager') }
   let(:table_manager) { instance_double('Bosh::AzureCloud::TableManager') }
   let(:stemcell_manager) { instance_double('Bosh::AzureCloud::StemcellManager') }
@@ -24,8 +23,6 @@ shared_context 'shared stuff' do
       .and_return(azure_client)
     allow(Bosh::AzureCloud::BlobManager).to receive(:new)
       .and_return(blob_manager)
-    allow(Bosh::AzureCloud::DiskManager).to receive(:new)
-      .and_return(disk_manager)
     allow(Bosh::AzureCloud::StorageAccountManager).to receive(:new)
       .and_return(storage_account_manager)
     allow(Bosh::AzureCloud::TableManager).to receive(:new)

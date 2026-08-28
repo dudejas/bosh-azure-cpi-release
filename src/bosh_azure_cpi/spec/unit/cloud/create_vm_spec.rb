@@ -179,7 +179,7 @@ describe Bosh::AzureCloud::Cloud do
       end
     end
 
-    context 'when use_managed_disks is not set' do
+    context 'when creating VMs' do
       let(:instance_id) { instance_double(Bosh::AzureCloud::InstanceId) }
       let(:instance_id_string) { 'fake-instance-id' }
       let(:vm_params) do
@@ -299,7 +299,7 @@ describe Bosh::AzureCloud::Cloud do
       end
     end
 
-    context 'when use_managed_disks is set' do
+    context 'when creating managed VMs' do
       let(:instance_id) { instance_double(Bosh::AzureCloud::InstanceId) }
       let(:instance_id_string) { 'fake-instance-id' }
       let(:vm_params) do
