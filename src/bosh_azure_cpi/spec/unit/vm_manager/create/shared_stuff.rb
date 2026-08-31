@@ -17,7 +17,6 @@ shared_context 'shared stuff for vm manager' do
   let(:storage_account_manager) { instance_double(Bosh::AzureCloud::StorageAccountManager) }
   let(:stemcell_manager2) { instance_double(Bosh::AzureCloud::StemcellManager2) }
   let(:light_stemcell_manager) { instance_double(Bosh::AzureCloud::LightStemcellManager) }
-  let(:blob_manager) { instance_double(Bosh::AzureCloud::BlobManager) }
   let(:vm_manager) { Bosh::AzureCloud::VMManager.new(azure_config, disk_manager2, azure_client, storage_account_manager, stemcell_manager2, light_stemcell_manager) }
   let(:vm_manager2) { Bosh::AzureCloud::VMManager.new(azure_config_managed, disk_manager2, azure_client, storage_account_manager, stemcell_manager2, light_stemcell_manager) }
   # Parameters of create
@@ -219,22 +218,6 @@ shared_context 'shared stuff for vm manager' do
   # Disk
   let(:os_disk_name) { 'fake-os-disk-name' }
   let(:ephemeral_disk_name) { 'fake-ephemeral-disk-name' }
-  let(:os_disk) do
-    {
-      disk_name: 'fake-disk-name',
-      disk_uri: 'fake-disk-uri',
-      disk_size: 'fake-disk-size',
-      disk_caching: 'fake-disk-caching'
-    }
-  end
-  let(:ephemeral_disk) do
-    {
-      disk_name: 'fake-disk-name',
-      disk_uri: 'fake-disk-uri',
-      disk_size: 'fake-disk-size',
-      disk_caching: 'fake-disk-caching'
-    }
-  end
   let(:os_disk_managed) do
     {
       disk_name: 'fake-disk-name',

@@ -521,7 +521,6 @@ module Bosh::AzureCloud
         @telemetry_manager.monitor('attach_disk', id: vm_cid) do
           instance_id = InstanceId.parse(vm_cid, _azure_config.resource_group_name)
           disk_id = DiskId.parse(disk_cid, _azure_config.resource_group_name)
-          vm_name = instance_id.vm_name
           disk_name = disk_id.disk_name
 
           vm = @vm_manager.find(instance_id)

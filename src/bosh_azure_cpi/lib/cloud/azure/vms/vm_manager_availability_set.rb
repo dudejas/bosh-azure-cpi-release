@@ -41,6 +41,8 @@ module Bosh::AzureCloud
         # In some regions, the location of availability set is case-sensitive, e.g. CanadaCentral instead of canadacentral.
         elsif !availability_set[:location].casecmp(availability_set_params[:location]).zero?
           cloud_error("availability set '#{availability_set_name}' already exists, but in a different location '#{availability_set[:location].downcase}' instead of '#{availability_set_params[:location].downcase}'. Please delete the availability set or choose another location.")
+        elsif availability_set[:managed] == false
+          cloud_error("availability set '#{availability_set_name}' is unmanaged. Only managed availability sets can host managed-disk VMs. Please delete the availability set '#{availability_set_name}' and re-deploy.")
         else
           @logger.info("availability set '#{availability_set_name}' exists. No need to update.")
         end

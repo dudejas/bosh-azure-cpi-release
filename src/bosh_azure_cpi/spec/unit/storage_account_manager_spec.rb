@@ -430,7 +430,6 @@ describe Bosh::AzureCloud::StorageAccountManager do
         end
       end
     end
-  end
 
     context 'When the global configurations do not contain storage_account_name' do
       let(:resource_group_location) { 'fake-resource-group-location' }

@@ -375,7 +375,7 @@ describe Bosh::AzureCloud::VMManager do
                 tags: { 'user-agent' => 'bosh' },
                 platform_update_domain_count: vm_props.availability_set.platform_update_domain_count,
                 platform_fault_domain_count: vm_props.availability_set.platform_fault_domain_count,
-                managed: false
+                managed: true
               }
             end
             let(:availability_set) do
@@ -727,7 +727,7 @@ describe Bosh::AzureCloud::VMManager do
                 allow(azure_client).to receive(:get_max_fault_domains_for_location).with(location).and_return(location_fault_domain_count)
               end
 
-              it 'should update the managed property of the availability set' do
+              it 'should raise an error requiring the unmanaged availability set to be deleted' do
                 expect(vm_manager2).to receive(:flock)
                   .with("#{CPI_LOCK_PREFIX_AVAILABILITY_SET}-#{availability_set_name}", File::LOCK_SH)
                   .and_call_original
@@ -735,11 +735,9 @@ describe Bosh::AzureCloud::VMManager do
                   .with("#{CPI_LOCK_PREFIX_AVAILABILITY_SET}-#{availability_set_name}", File::LOCK_EX)
                   .and_call_original
 
-                expect(azure_client).to receive(:create_availability_set).with(MOCK_RESOURCE_GROUP_NAME, avset_params)
-                expect(azure_client).to receive(:create_network_interface).twice
-
-                _, vm_params = vm_manager2.create(bosh_vm_meta, location, vm_props, disk_cids, network_configurator, env, agent_util, network_spec, config)
-                expect(vm_params[:name]).to eq(vm_name)
+                expect do
+                  vm_manager2.create(bosh_vm_meta, location, vm_props, disk_cids, network_configurator, env, agent_util, network_spec, config)
+                end.to raise_error(Bosh::Clouds::CloudError, /availability set '#{availability_set_name}' is unmanaged/)
               end
             end
           end

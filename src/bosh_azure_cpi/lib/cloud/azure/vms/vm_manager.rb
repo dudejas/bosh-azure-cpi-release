@@ -30,6 +30,7 @@ module Bosh::AzureCloud
         disk_cids&.each do |disk_cid|
           disk_id = DiskId.parse(disk_cid, @azure_config.resource_group_name)
           disk = @disk_manager2.get_data_disk(disk_id)
+          cloud_error("Disk '#{disk_id.disk_name}' is not found.") if disk.nil?
           if disk[:sku_tier] == SKU_TIER_PREMIUM
             is_persistent_disk_premium = true
             break
@@ -368,11 +369,13 @@ module Bosh::AzureCloud
     def attach_disk(instance_id, disk_id)
       @logger.info("attach_disk(#{instance_id}, #{disk_id})")
       disk_name = disk_id.disk_name
+      managed_disk = @azure_client.get_managed_disk_by_name(disk_id.resource_group_name, disk_name)
+      cloud_error("Disk '#{disk_name}' is not found in resource group '#{disk_id.resource_group_name}'.") if managed_disk.nil?
       disk_params = {
         disk_name: disk_name,
         caching: disk_id.caching,
         disk_bosh_id: disk_id.to_s,
-        disk_id: @azure_client.get_managed_disk_by_name(disk_id.resource_group_name, disk_name)[:id],
+        disk_id: managed_disk[:id],
         managed: true
       }
       lun = @azure_client.attach_disk_to_virtual_machine(
