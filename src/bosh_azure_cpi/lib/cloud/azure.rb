@@ -88,6 +88,7 @@ require 'cloud/azure/meta_store/table_manager'
 require 'cloud/azure/stemcell/light_stemcell_manager'
 
 require 'cloud/azure/disk/disk_manager2'
+require 'cloud/azure/stemcell/stemcell_manager'
 require 'cloud/azure/stemcell/stemcell_manager2'
 require 'cloud/azure/storage/storage_account_manager'
 
